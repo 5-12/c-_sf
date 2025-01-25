@@ -1,73 +1,36 @@
-#include <cstdio>
-//#define endl "\n"
+#include <bits/stdc++.h>
 using namespace std;
-int mx,my,bx,by;
-const int dx=0,dy=9;//µØÍ¼±ß½ç 
-long long int rest[10][10]={1};
-bool kd[10][10];
-void Couts(); 
-void kd_Cout();
+int mx,my,bx,by,i,j;
+long long int outcome[15][15];
+bool E_try[15][15];
+const int Begin_bj=0,End_bj=12;
+void O_T_out();
 int main()
 {
-	//Couts();
-	for(int i=0;i<=9;i++)
+	cin>>mx>>my;
+	mx++;my++;
+	for(i=1;i<=mx;i++)outcome[i][2]=1;
+	for(i=1;i<=my;i++)outcome[2][i]=1;
+	for(i=2;i<=mx;i++)
 	{
-		rest[i][0]=1;
-		rest[0][i]=1;
-	}
-	scanf("%d%d",&mx,&my);
-	scanf("%d%d",&bx,&by);
-	mx--;my--;
-	bx--;by--;
-	//printf("%d %d\n",mx,my);
-	if(mx>=dx&&my>=dx&&mx<=dy&&my<=dy)rest[mx][my]=0,kd[mx][my]=1;
-	if(mx-2>=dx&&my+1>=dx&&mx-2<=dy&&my+1<=dy)rest[mx-2][my+1]=0,kd[mx-2][my+1]=1;
-	if(mx-2>=dx&&my-1>=dx&&mx-2<=dy&&my-1<=dy)rest[mx-2][my-1]=0,kd[mx-2][my-1]=1;
-	if(mx+2>=dx&&my-1>=dx&&mx+2<=dy&&my-1<=dy)rest[mx+2][my-1]=0,kd[mx+2][my-1]=1;
-	if(mx+2>=dx&&my+1>=dx&&mx+2<=dy&&my+1<=dy)rest[mx+2][my+1]=0,kd[mx+2][my+1]=1;
-	//×ÝÏò
-	if(mx-1>=dx&&my+2>=dx&&mx-1<=dy&&my+2<=dy)rest[mx-1][my+2]=0,kd[mx-1][my+2]=1;
-	if(mx-1>=dx&&my-2>=dx&&mx-1<=dy&&my-2<=dy)rest[mx-1][my-2]=0,kd[mx-1][my-2]=1;
-	if(mx+1>=dx&&my-2>=dx&&mx+1<=dy&&my-2<=dy)rest[mx+1][my-2]=0,kd[mx+1][my-2]=1;
-	if(mx+1>=dx&&my+2>=dx&&mx+1<=dy&&my+2<=dy)rest[mx+1][my+2]=0,kd[mx+1][my+2]=1;
-	for(int i=1;i<=9;i++)
-	{
-		for(int j=1;j<=9;j++)
+		for(j=2;j<=my;j++)
 		{
-			if(!kd[i][j])
-			{
-				rest[i][j]=rest[i-1][j]+rest[i][j-1]; 
-				//printf("%d,(%d:%d) ",rest[i][j],i,j);		
-			}
+			outcome[i][j]=outcome[i-1][j]+outcome[i][j-1];
+			//printf("%d ",outcome[i][j]);
 		}
-		//printf("\n");
+		//cout<<endl;
 	}
-	printf("%d",rest[bx][by]);
-	//Couts();
-	//printf("\n");
-	//kd_Cout();
+	O_T_out();
 }
-void Couts()
+void O_T_out()
 {
-	for(int i=0;i<=9;i++)
+	for(i=2;i<=mx;i++)
 	{
-		for(int j=0;j<=9;j++)
+		for(j=2;j<=my;j++)
 		{
-			//rest[i][j]=rest[i-1][j]+rest[i][j-1]; 
-			printf("%d(%d:%d) ",rest[i][j],i,j);		
+			//outcome[i][j]=outcome[i-1][j]+outcome[i][j-1];
+			printf("%d ",outcome[i][j]);
 		}
-		printf("\n");
-	}	return;
-}
-void kd_Cout()
-{	
-	for(int i=0;i<=9;i++)
-	{
-		for(int j=0;j<=9;j++)
-		{
-			//rest[i][j]=rest[i-1][j]+rest[i][j-1]; 
-			printf("%d(%d:%d) ",kd[i][j],i,j);		
-		}
-		printf("\n");
-	}
+		cout<<endl;
+	}	
 }
